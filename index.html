@@ -131,7 +131,8 @@ html.no-intro .intro{display:none}
 @keyframes open{from{--ir:clamp(64px,11vmin,120px);--iy:44%}to{--ir:150vmax;--iy:50%}}
 
 /* hero */
-.hero{position:relative;height:100svh;min-height:600px;color:#fff;overflow:hidden;background:#0B1822}
+.hero{position:relative;z-index:3;height:100svh;min-height:600px;color:#fff;background:#0B1822}
+.hero .hv-clip{position:absolute;inset:0;overflow:hidden}
 .hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero .poster{z-index:0}
 .hero video{z-index:1;opacity:0;transition:opacity 1.2s ease}
@@ -169,18 +170,18 @@ html.no-intro .intro{display:none}
 .qb{position:absolute;z-index:5;left:50%;bottom:0;transform:translate(-50%,50%);width:min(980px,100% - 48px);display:grid;grid-template-columns:1fr 1fr 1fr auto;background:#FBF8F2;color:var(--ink);border-radius:22px;box-shadow:var(--sh-3);padding:10px;gap:4px}
 .qb label{display:flex;flex-direction:column;justify-content:center;padding:10px 18px;border-radius:14px;transition:background .3s}
 .qb label:hover{background:var(--sand)}
-.qb span{font:600 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-t);margin-bottom:6px}
+.qb label>span{font:600 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-t);margin-bottom:6px}
 .qb input,.qb select{border:0;background:none;font:500 16px/1.2 var(--sans);color:var(--ink);padding:0;min-width:0;width:100%}
 .qb .btn{border-radius:14px}
 @media (max-width:900px){.qb{display:none}.awd{display:none}.hero .hc{bottom:calc(84px + env(safe-area-inset-bottom))}}
 
 /* proof */
-.proof{padding:clamp(120px,12vw,150px) 0 70px;border-bottom:1px solid var(--line)}
+.proof{position:relative;z-index:1;padding:clamp(130px,12vw,160px) 0 70px;border-bottom:1px solid var(--line)}
 .proof .row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
 .pf{text-align:center;padding:10px 6px;perspective:600px}
-.pf .n{font:300 clamp(42px,4.4vw,64px)/1 var(--serif);color:var(--deep);font-variant-numeric:tabular-nums}
+.pf .n{display:block;font:300 clamp(42px,4.4vw,64px)/1 var(--serif);color:var(--deep);font-variant-numeric:tabular-nums}
 .pf .n small{font-size:.5em;color:var(--gold-t)}
-.pf .t{font:500 13px/1.45 var(--sans);color:#615a50;margin-top:10px}
+.pf .t{display:block;font:500 13px/1.45 var(--sans);max-width:22ch;margin-inline:auto;color:#615a50;margin-top:10px}
 .pf .in{display:block;transform:rotateX(70deg) translateY(20px);opacity:0;transform-origin:50% 100%;transition:transform .9s var(--ease),opacity .9s;transition-delay:calc(var(--i)*90ms)}
 .pf.on .in{transform:none;opacity:1}
 @media (max-width:900px){.proof .row{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:34px}.pf:last-child{grid-column:1/-1}}
@@ -468,11 +469,18 @@ html.js body:not(.ckok) .advon-ck{opacity:0!important;visibility:hidden!importan
 <div class="mnav" id="mnav" hidden><button class="mnav-x" type="button" aria-label="Κλείσιμο μενού" data-en-aria="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 <a href="#vila" data-en="The villa">Η βίλα</a><a href="#mera" data-en="A day">Μια μέρα</a><a href="#choroi" data-en="Spaces">Χώροι</a><a href="#perioxi" data-en="The area">Περιοχή</a><a href="#kritikes" data-en="Reviews">Κριτικές</a><a href="#epikoinonia" data-en="Contact">Επικοινωνία</a><a class="btn" href="#kratisi" data-en="Booking request">Αίτημα κράτησης</a></div>
 <main id="top">
-<section class="hero" id="hero">
+<section class="hero" id="hero"><div class="hv-clip">
 <picture><source media="(max-width:1100px) and (orientation:portrait)" srcset="assets/video/sun-villa-glyfada-hero-kinito-poster.webp"><img class="poster" src="assets/video/sun-villa-glyfada-hero-poster.webp" width="1600" height="900" alt="Η Sun Villa και ο κόλπος με τα Τριζόνια από ψηλά" data-en-alt="Sun Villa and the gulf with Trizonia from above" fetchpriority="high"></picture>
-<video id="hv" muted loop playsinline autoplay preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture></video>
-<script>(function(){var v=document.getElementById('hv'),m=matchMedia('(max-width:1100px) and (orientation:portrait)').matches,b='assets/video/sun-villa-glyfada-hero'+(m?'-kinito':''),c=navigator.connection||{};if(c.saveData||/2g/.test(c.effectiveType||'')||matchMedia('(prefers-reduced-motion:reduce)').matches)return;v.poster=b+'-poster.webp';['webm','mp4'].forEach(function(t){var s=document.createElement('source');s.src=b+'.'+t;s.type='video/'+t;v.appendChild(s)});v.addEventListener('playing',function(){v.classList.add('on')},{once:true});var p=v.play();p&&p.catch&&p.catch(function(){})})();</script>
-<div class="sh"></div><div class="gr"></div>
+<video id="hv" muted loop playsinline autoplay preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback></video>
+<script>(function(){var v=document.getElementById('hv'),m=matchMedia('(max-width:1100px) and (orientation:portrait)').matches,b='assets/video/sun-villa-glyfada-hero'+(m?'-kinito':''),c=navigator.connection||{};if(c.saveData||/2g/.test(c.effectiveType||''))return;
+v.muted=true;v.defaultMuted=true;v.setAttribute('muted','');v.poster=b+'-poster.webp';
+['mp4','webm'].forEach(function(t){var s=document.createElement('source');s.src=b+'.'+t;s.type='video/'+t;v.appendChild(s)});
+v.addEventListener('playing',function(){v.classList.add('on')});
+function go(){var p=v.play();p&&p.catch&&p.catch(function(){})}
+v.load();go();v.addEventListener('canplay',go,{once:true});
+['touchstart','pointerdown','scroll','keydown'].forEach(function(e){addEventListener(e,function h(){if(v.paused)go();removeEventListener(e,h)},{passive:true})});
+document.addEventListener('visibilitychange',function(){if(!document.hidden&&v.paused)go()})})();</script>
+<div class="sh"></div><div class="gr"></div></div>
 <div class="scene" aria-hidden="true"><i></i><span class="sl"><span data-en="Morning · the gulf &amp; Trizonia">Πρωί · ο κόλπος &amp; τα Τριζόνια</span><span class="off" data-en="Blue hour · the pool">Σούρουπο · η πισίνα</span></span></div>
 <div class="hc"><div class="w">
 <h1 data-en="Sun Villa Glyfada · villa with a private pool in Glyfada, Fokida · opposite Trizonia">Sun Villa Glyfada · βίλα με ιδιωτική πισίνα στη Γλυφάδα Φωκίδας · απέναντι από τα Τριζόνια</h1>
@@ -672,7 +680,7 @@ function dayUpd(){if(!day)return;var r=day.getBoundingClientRect(),tot=day.offse
 var tick=false,prog=$('.prog'),tt=$('.tt'),map=$('#map'),boat=map?$('.boat',map):null,pys=$$('[data-py]'),band=$('.band img'),past=false;
 function onScroll(){tick=false;var y=scrollY,vh=innerHeight,dh=D.documentElement.scrollHeight-vh;
  var pr=dh>0?y/dh:0;prog.style.setProperty('--p',pr);tt.style.setProperty('--p',pr);
- var s=y>vh*.6;if(s!==hd.classList.contains('solid')){hd.classList.toggle('solid',s);if(s&&!spun){spun=true;hd.classList.add('spun')}}
+ var s=y>Math.min(140,vh*.18);if(s!==hd.classList.contains('solid')){hd.classList.toggle('solid',s);if(s&&!spun){spun=true;hd.classList.add('spun')}}
  var ps=y>vh*.85;if(ps!==past){past=ps;D.body.classList.toggle('past',ps)}
  $('.cue')&&($('.cue').style.opacity=y>40?0:1);
  if(wd.length){var lim=vh*.72;wd.forEach(function(w){w.classList.toggle('lit',w.getBoundingClientRect().top<lim)})}

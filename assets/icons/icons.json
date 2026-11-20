@@ -1,0 +1,16 @@
+{
+ "source": {
+  "kind": "file",
+  "ref": "assets/img/sun-villa-glyfada-icon.svg"
+ },
+ "source_md5": "3a934b6bd3c920c9df092837aa74ddf5",
+ "version": "07a25efd",
+ "tile": null,
+ "crop": null,
+ "header": [
+  "inline",
+  "index.html",
+  "d15bfd3e5885cc9fec2338637e989443"
+ ],
+ "made": "2026-11-20"
+}
